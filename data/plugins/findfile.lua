@@ -112,15 +112,16 @@ local function index_files_thread(pathsep, ignore_files, file_size_limit)
             dir_path .. pathsep .. file
           )
 
+          local fullname = (directory .. file):gsub("\\", "/")
           if
             info and info.size <= file_size_limit
             and
-            not commons.match_pattern(directory .. file, ignore_files)
+            not commons.match_pattern(fullname, ignore_files)
           then
             if info.type == "dir" then
-              table.insert(directories, directory .. file)
+              table.insert(directories, fullname)
             else
-              table.insert(files_found, directory .. file)
+              table.insert(files_found, fullname)
             end
           end
         end
